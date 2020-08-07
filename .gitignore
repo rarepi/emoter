@@ -1,0 +1,9 @@
+build
+__pycache__
+.vscode
+*.exe
+*.bat
+*_old.py
+*.code-workspace
+.idea
+*.png
