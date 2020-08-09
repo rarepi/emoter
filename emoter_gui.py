@@ -2,40 +2,41 @@ from tkinter import *
 from PIL import Image
 from PIL import ImageTk
 from PIL import ImageDraw
+from emoter import make_emotes
 
 root = Tk()
 root.title('Emoter')
-# root.iconbitmap('path/to/file.ico')
-root.geometry("800x600")
-
-
-
-
-
-w = 600
-h = 400
-canvas = Canvas(root, width=w, height=h, bg="white")
-canvas.pack(pady=20)
-
-img = Image.open("Jeanne_DArc_Alter_Berserker.png")
-# img.thumbnail((1000, 1000), Image.ANTIALIAS)
-img_tk = ImageTk.PhotoImage(image=img)
-img_canvas = canvas.create_image(0, 0, anchor=NW, image=img_tk)
 
 ########################
 # temporarily hardcoded
 ########################
-sprite_size = 256
 emote_size = 96
+sprite_size = 256
 
+img = Image.open("Jeanne_DArc_Alter_Berserker.png")
+img_tk = ImageTk.PhotoImage(image=img)
 
+h = 800
+w = h
+frame = Frame(root,width=w,height=h)
+frame.pack(expand=True, fill=BOTH)
+canvas = Canvas(frame, width=img_tk.width(), height=h, bg="white", scrollregion=(0,0,img_tk.width(),img_tk.height()))
+vbar = Scrollbar(frame,orient=VERTICAL)
+vbar.pack(side=RIGHT,fill=Y)
+vbar.config(command=canvas.yview)
+canvas.config(width=img_tk.width(),height=300)
+canvas.config(yscrollcommand=vbar.set)
+canvas.pack(side=LEFT,expand=True,fill=BOTH)
+canvas.pack(pady=10)
+
+img_canvas = canvas.create_image(0, 0, anchor=NW, image=img_tk)
 
 col_count = int(img.width/sprite_size)
 row_count = int(img.height/sprite_size)
 print(col_count)
 print(row_count)
 
-root.geometry(str(img.width) + "x" + str(img.height))
+root.geometry(str(img.width) + "x" + str(h))
 canvas.config(width=img.width, height=img.height)
 
 
@@ -53,7 +54,6 @@ for i in range(0, col_count+1):
 
 #label = Label(root)
 #label.pack(pady=20)
-
 
 def left(event):
     x = -10
