@@ -43,7 +43,6 @@ class emoter_gui:
         def recalculate_emote_grid():
             self.sprite_cols = int(self.sprite_sheet.width() / self.sprite_size)
             self.sprite_rows = int(self.sprite_sheet.height() / self.sprite_size)
-            print(self.sprite_cols, self.sprite_rows)
 
         # button
         def open_image_file():

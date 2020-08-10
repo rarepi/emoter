@@ -3,7 +3,6 @@ import cv2
 
 
 def make_emotes(img_file, sprite_size, x, y, emote_size):
-    print(img_file, sprite_size, x, y, emote_size)
     img = cv2.imread(img_file, cv2.IMREAD_UNCHANGED)
     image_height, image_width, channels = img.shape
 
