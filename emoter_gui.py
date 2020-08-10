@@ -40,6 +40,11 @@ class emoter_gui:
         svar_image_file = StringVar(file_dialog_canvas, value="")
         entry_image_file = Entry(file_dialog_canvas, textvariable=svar_image_file)
 
+        def recalculate_emote_grid():
+            self.sprite_cols = int(self.sprite_sheet.width() / self.sprite_size)
+            self.sprite_rows = int(self.sprite_sheet.height() / self.sprite_size)
+            print(self.sprite_cols, self.sprite_rows)
+
         # button
         def open_image_file():
             svar_image_file.set(filedialog.askopenfilename(initialdir=".", title="Select file"))
@@ -53,8 +58,7 @@ class emoter_gui:
             self.sprite_sheet = PhotoImage(file=self.image_file)
             canvas.itemconfig("sprite-sheet", image=self.sprite_sheet)
             canvas.config(scrollregion=(0, 0, self.sprite_sheet.width(), self.sprite_sheet.height()))
-            self.sprite_cols = int(self.sprite_sheet.width() / self.sprite_size)
-            self.sprite_rows = int(self.sprite_sheet.height() / self.sprite_size)
+            recalculate_emote_grid()
             canvas.delete("rect")
             for i in range(0, self.sprite_cols + 1):
                 for j in range(0, self.sprite_rows + 1):
@@ -93,6 +97,7 @@ class emoter_gui:
 
         def update_sprite_size(event):
             self.sprite_size = ivar_sprite_size.get()
+            update_image_file()
             # TODO reset rectangle positions here
 
         entry_sprite_size.bind("<Return>", update_sprite_size)
@@ -105,6 +110,7 @@ class emoter_gui:
 
         def update_emote_size(event):
             self.emote_size = ivar_emote_size.get()
+            recalculate_emote_grid()
             render_rectangles()
 
         entry_emote_size.bind("<Return>", update_emote_size)
