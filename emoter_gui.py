@@ -45,7 +45,7 @@ class emoter_gui:
             svar_image_file.set(filedialog.askopenfilename(initialdir=".", title="Select file"))
             update_image_file()
         button_open_image_file = Button(file_dialog_canvas, text="Open", command=open_image_file)
-        button_open_image_file.pack(side=LEFT)
+        button_open_image_file.pack(side=LEFT, padx=(10,0))
         entry_image_file.pack(expand=True, fill=BOTH, padx=10, pady=10)
 
         def update_image_file(event=None):
